@@ -1,0 +1,52 @@
+# Build directories
+build/
+bin/
+obj/
+Debug/
+Release/
+x64/
+Win32/
+.vs/
+
+# Visual Studio files
+*.vcxproj.user
+*.vcxproj.filters
+*.vcxproj
+*.sln
+*.suo
+*.user
+*.sdf
+*.opensdf
+*.db
+*.opendb
+
+# Compiled binaries
+*.exe
+*.dll
+*.lib
+*.pdb
+*.exp
+*.ilk
+*.iobj
+*.ipdb
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+*~
+
+# System files
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# IDE specific
+.vscode/
+.idea/
+
+# Dependencies
+packages/
+vcpkg/
