@@ -79,4 +79,10 @@ echo.
 echo Note: This application requires administrator privileges to inject into Roblox.
 echo Make sure to run as administrator when testing.
 echo.
+
+if exist "bin\Release\XShade.exe" (
+    echo XShade.exe was built successfully!
+) else (
+    echo ERROR: XShade.exe was not found after build.
+)
 pause
