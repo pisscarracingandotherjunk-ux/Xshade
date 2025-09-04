@@ -1,37 +1,6 @@
 @echo off
 echo Building XShade RTX Enhancement Tool...
 
-REM Check if CMake is installed and accessible
-cmake --version >nul 2>&1
-if %errorlevel% neq 0 (
-    echo.
-    echo ERROR: CMake is not installed or not found in PATH
-    echo.
-    echo CMake 3.20+ is required to build XShade.
-    echo Please install CMake from one of these options:
-    echo.
-    echo 1. Download from: https://cmake.org/download/
-    echo    - Choose "Windows x64 Installer"
-    echo    - During installation, select "Add CMake to system PATH"
-    echo.
-    echo 2. Using winget: winget install Kitware.CMake
-    echo.
-    echo 3. Using chocolatey: choco install cmake
-    echo.
-    echo After installation, restart your command prompt and try again.
-    echo.
-    pause
-    exit /b 1
-)
-
-REM Check CMake version
-for /f "tokens=3" %%i in ('cmake --version ^| findstr /C:"cmake version"') do set CMAKE_VERSION=%%i
-echo Found CMake version: %CMAKE_VERSION%
-
-if not exist build mkdir build
-cd build
-
-@echo off
 setlocal enabledelayedexpansion
 
 REM --- Search for Visual Studio installations on all drives ---
@@ -63,7 +32,9 @@ if not defined VS_FOUND (
     echo Visual Studio found at: !VS_FOUND!
     pause
 )
-endlocal
+
+REM Continue with the rest of your batch file here...
+REM (Do not use endlocal until the very end, if at all)
 
 cmake .. -G "Visual Studio 17 2022" -A x64
 if %errorlevel% neq 0 (
