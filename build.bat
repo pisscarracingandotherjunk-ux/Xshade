@@ -1,31 +1,4 @@
 @echo off
-REM --- Search for Visual Studio installations on all drives ---
-set "VS_FOUND="
-for %%d in (C D E F G H) do (
-    for /r %%d:\ "devenv.exe" %%f in (devenv.exe) do (
-        set "VS_FOUND=%%f"
-        goto :VS_FOUND
-    )
-)
-REM Also check for vswhere.exe (recommended way)
-if exist "%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" (
-    for /f "usebackq tokens=*" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -property installationPath`) do (
-        set "VS_FOUND=%%i\Common7\IDE\devenv.exe"
-        goto :VS_FOUND
-    )
-)
-
-:VS_FOUND
-if not defined VS_FOUND (
-    echo.
-    echo ERROR: No Visual Studio installation found on any drive.
-    echo Please install Visual Studio 2022 (Community Edition or higher).
-    echo.
-    pause
-    exit /b 1
-) else (
-    echo Visual Studio found at: %VS_FOUND%
-)
 echo Building XShade RTX Enhancement Tool...
 
 REM Check if CMake is installed and accessible
@@ -57,6 +30,40 @@ echo Found CMake version: %CMAKE_VERSION%
 
 if not exist build mkdir build
 cd build
+
+@echo off
+setlocal enabledelayedexpansion
+
+REM --- Search for Visual Studio installations on all drives ---
+set "VS_FOUND="
+for %%d in (C D E F G H) do (
+    for /r %%d:\ %%f in (devenv.exe) do (
+        set "VS_FOUND=%%f"
+        goto :VS_FOUND
+    )
+)
+
+REM Also check for vswhere.exe (recommended way)
+if exist "%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" (
+    for /f "usebackq tokens=*" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -property installationPath`) do (
+        set "VS_FOUND=%%i\Common7\IDE\devenv.exe"
+        goto :VS_FOUND
+    )
+)
+
+:VS_FOUND
+if not defined VS_FOUND (
+    echo.
+    echo ERROR: No Visual Studio installation found on any drive.
+    echo Please install Visual Studio 2022 (Community Edition or higher).
+    echo.
+    pause
+    exit /b 1
+) else (
+    echo Visual Studio found at: !VS_FOUND!
+    pause
+)
+endlocal
 
 cmake .. -G "Visual Studio 17 2022" -A x64
 if %errorlevel% neq 0 (
