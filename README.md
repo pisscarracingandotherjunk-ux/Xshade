@@ -44,10 +44,20 @@ XShade is a Windows 11 x64 application that enhances Roblox graphics by replacin
 
 ## Building
 
+### Quick Start
+
 1. Clone the repository
-2. Open Command Prompt as Administrator
-3. Run `build.bat`
-4. Executable will be created in `build\bin\Release\`
+2. Run `setup.bat` to install prerequisites (optional but recommended)
+3. Open Command Prompt as Administrator
+4. Run `build.bat`
+5. Executable will be created in `build\bin\Release\`
+
+### Prerequisites
+
+If you encounter build errors, ensure you have:
+- CMake 3.20+ ([download here](https://cmake.org/download/))
+- Visual Studio 2022 with C++ development tools ([download here](https://visualstudio.microsoft.com/downloads/))
+- Windows 10/11 SDK
 
 ### Manual Build Steps
 
@@ -56,6 +66,14 @@ mkdir build && cd build
 cmake .. -G "Visual Studio 17 2022" -A x64
 cmake --build . --config Release
 ```
+
+### Automated Setup
+
+Run `setup.bat` to automatically check and install missing prerequisites:
+- Detects if CMake is installed
+- Offers multiple installation options (winget, chocolatey, manual)
+- Checks for Visual Studio 2022
+- Provides clear guidance for missing components
 
 ## Installation & Usage
 
@@ -127,6 +145,13 @@ XShade is designed as a graphics enhancement tool and:
 ## Troubleshooting
 
 ### Common Issues
+
+**"cmake is not recognized" error when running build.bat**
+- CMake is not installed or not in system PATH
+- Run `setup.bat` for automated installation
+- Or manually install from https://cmake.org/download/
+- During installation, check "Add CMake to system PATH"
+- Restart command prompt after installation
 
 **XShade won't start**
 - Ensure running as Administrator
