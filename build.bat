@@ -1,4 +1,6 @@
 @echo off
+pause
+
 echo Building XShade RTX Enhancement Tool...
 
 setlocal enabledelayedexpansion
